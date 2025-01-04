@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SupplierController;
+use App\Models\Supplier;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -50,3 +53,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+
+    Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
+
+    Route::get('/search', [ProductController::class, 'search'])->name('supplier.store');
+    
+});
