@@ -10,8 +10,10 @@
 <template>
     <div class="flex flex-col min-h-screen">
         <Header :currentRoute="props.currentRoute"/>
-        <main class="flex-1 bg-primary-4">
-            <slot />
+        <main class="flex-1 bg-primary-4 ">
+            <div class="container mx-auto p-4">
+                <slot />
+            </div>
         </main>
 
     </div>

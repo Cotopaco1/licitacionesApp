@@ -20,6 +20,23 @@ h4{
     @apply text-lg;
 }
 
-p,h1,h2,h3,h4{
+h1,h2,h3,h4{
+    @apply text-primary-1;
+}
+p, span{
     @apply text-black-custom;
 }
+
+.svg-medium{
+    @apply cursor-pointer flex justify-center items-center;
+}
+.svg-medium img{
+    @apply w-[30px] h-[30px]
+}
+
+/* Cambios para vue prime.. */
+:root {
+    --surface-a: #36BFB1!important; /* Fondo general */
+    --text-color: #0D0D0D; /* Color del texto principal */
+  }
+  
