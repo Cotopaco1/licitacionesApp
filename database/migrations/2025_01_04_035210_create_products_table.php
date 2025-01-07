@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('unit_price_withouth_tax', 10, 2);
             $table->string('brand')->nullable();
-            $table->string('notes')->nullable();
+            $table->text('notes')->nullable();
             $table->string('url_data')->nullable();
             $table->timestamps();
             $table->softDeletes();

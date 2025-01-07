@@ -8,18 +8,15 @@
             default: false
         },
         modelValue: {
-            type: String,
+            type: [File, String],
             default: ''
         }
     })
-    const localValue = ref(props.modelValue);
     const emit = defineEmits(['update:modelValue']);
-    watch( localValue, (newValue) => {
-        emit('update:modelValue', newValue);
-    })
 
     function onUpload(event) {
-        console.log(event);
+        const file = event.files[0];
+        emit('update:modelValue', file);
     }
 
 </script>
@@ -32,8 +29,6 @@
             :maxFileSize="1000000" 
             @select="onUpload"
             :chooseLabel="label"
-            v-model="localValue"
-            name="file123"
             fluid
         />
         

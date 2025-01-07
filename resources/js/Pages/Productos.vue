@@ -1,78 +1,76 @@
 <script setup>
-    const props = defineProps({
-        currentRoute: {
-            type: String,
-            required: true
-        }
-    })
-    
     import LayoutPrincipal from '@/Layouts/Principal.vue';
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
     import SearchBar from '@/Components/SearchBar.vue';
     import PlusButton from '@/Components/buttons/PlusButton.vue';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
     import EyeButton from '@/Components/buttons/EyeButton.vue';
     import DownloadDocumentButton from '@/Components/buttons/DownloadDocumentButton.vue';
-    import Modal from '@/Components/ModalCustom.vue';
     import ProductCreate from '@/Components/products/ProductCreate.vue';
     import ProductView from '@/Components/products/ProductView.vue';
-    const products = [
-        {
-            id: 1,
-            name: 'Producto 1',
-            supplier: 'Proveedor 1',
-            unit_of_measure: 'Unidad',
-            description: 'Descripción del producto 1',
-            unit_price_withouth_tax: 100,
-            brand: 'Marca 1',
-            notes: 'Notas del producto 1',
-            technical_data_sheet_url: 'https://www.google.com',
+    import { RequestService } from '@/Composables/RequestService';
+    const {request} = RequestService();
 
-        }
-    ]
+    const props = defineProps({
+        currentRoute: {
+            type: String,
+            required: true
+        },
+        products: Array,
+    });
 
-    const text = ref('');
+    const filterProducts = ref(props.products);
+
     const showProductCreate = ref(false);
     const showProductView = ref(false);
-    const productToView = ref(null);
+    const productToView = ref({});
 
     function viewProduct(product) {
-        productToView.value = product;
+        productToView.value = JSON.parse(JSON.stringify(product));
+        console.log(productToView.value);
         showProductView.value = true;
+        console.log(productToView.value);
     }
-
+    function getProducts(){
+        request('/product').then(response => {
+            console.log(response);
+            filterProducts.value = response.products;
+        });
+    }
+   
 </script>
 <template>
-    <Modal title="Crear producto" v-if="showProductCreate" @close="showProductCreate = false">
-        <ProductCreate/>
-    </Modal>
-
-    <Modal :title="`Producto #`+productToView.id" v-if="showProductView" @close="showProductView = false">
-        <ProductView v-model="productToView"/>
-    </Modal>
     
+    <ProductCreate :showModal="showProductCreate" @close="showProductCreate = false"/>
+    
+    <ProductView 
+        v-model="productToView" 
+        :showModal="showProductView" 
+        @close="showProductView = false"
+        @updated="getProducts"
+    />
 
     <LayoutPrincipal :currentRoute="currentRoute">
         <div class="flex gap-10 mb-10">
-            <SearchBar class="flex-1"/>
-            <PlusButton @click="showProductCreate = true"/>
+            <SearchBar v-model="filterProducts" route="/search" class="flex-1" @clear="filterProducts = props.products"/>
+            <PlusButton @click="showProductCreate = true" class="pt-6"/>
         </div>
         <div >
-            <DataTable :value="products" size="small" stripedRows>
+            <DataTable :value="filterProducts" size="small" stripedRows paginator :rows="10">
+                <Column field="id" header="ID"></Column>
                 <Column field="name" header="Nombre"></Column>
                 <Column field="supplier" header="Proveedor"></Column>
                 <Column field="unit_of_measure" header="Unidad de medida"></Column>
-                <Column field="description" header="Descripción"></Column>
+                <Column field="description" header="Descripción" class="truncate-text"></Column>
                 <Column field="unit_price_withouth_tax" header="Precio unitario sin impuestos"></Column>
                 <Column field="brand" header="Marca"></Column>
-                <Column field="notes" header="Notas"></Column>
-                <Column field="technical_data_sheet_url" header="Ficha técnica"></Column>
+                <Column field="notes" header="Notas" class="truncate-text"></Column>
                 <Column header="Acciones"> 
                     <template #body="slotProps">
                         <div class="flex justify-end">
+                            <DownloadDocumentButton v-if="slotProps.data.url_data" :route="'/files/product/'+ slotProps.data.id"/>
                             <EyeButton @click="viewProduct(slotProps.data)" />
-                            <DownloadDocumentButton/>
                         </div>
                     </template>
                 </Column>

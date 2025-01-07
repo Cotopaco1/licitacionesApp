@@ -17,10 +17,12 @@ export default {
             },
             colors: {
                 primary: {
-                    1: '#36BFB1',
-                    2: '#038C73',
-                    3: '#02735E',
-                    4: '#014034',
+                    1: '#eefcf9',
+                    2: '#c5f7ed',
+                    3: '#9df1e0',
+                    4: '#75ebd3',
+                    5: '#4de5c6',
+                    6: '#2be0bb',
                 },
                 'black-custom': '#0D0D0D',
             }
@@ -29,3 +31,20 @@ export default {
 
     plugins: [forms],
 };
+/* Paleta original.. */
+/* primary: {
+    1: '#36BFB1',
+    2: '#038C73',
+    3: '#02735E',
+    4: '#014034',
+}, */
+
+/* Paleta nueva... */
+/*
+#b394ef
+#a884ed
+#9d75eb
+#976ce9
+#8c5ce7
+#814de5
+  */

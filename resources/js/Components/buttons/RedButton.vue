@@ -4,5 +4,5 @@
    })
 </script>
 <template> 
-    <button type="button" class="bg-red-500 hover:bg-red-400 text-white px-4 py-2 rounded-lg">{{ label ?? 'Cancelar' }}</button>
+    <button type="button" class="button bg-red-500  text-white ">{{ label ?? 'Cancelar' }}</button>
 </template>

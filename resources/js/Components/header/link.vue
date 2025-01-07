@@ -9,14 +9,18 @@
 
 </script>
 <template>
-    <Link :href="props.link" class="px-6 py-4 flex justify-center items-center flex-1" :class="{'active': active}">
-        <span  > {{ props.text }} </span>
+    <Link :href="props.link" 
+        class="px-6 py-4 flex justify-center items-center flex-1 hover:bg-primary-6" 
+        :class="{'active': active}"
+
+    >
+        <span class="font-bold" > {{ props.text }} </span>
     </Link>
 </template>
 
 <style scoped>
     .active {
-        @apply bg-primary-4;
+        @apply bg-primary-6;
     }
     .active span{
         @apply text-primary-1;

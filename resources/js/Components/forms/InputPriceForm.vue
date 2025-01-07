@@ -8,7 +8,7 @@ import { ref, watch } from 'vue';
             default: false
         },
         modelValue: {
-            type: Number,
+            type: [Number, String],
             default: ''
         }
     })
@@ -22,7 +22,13 @@ import { ref, watch } from 'vue';
 <template>
     <div>
         <FloatLabel variant="in" >
-            <InputNumber v-model="localValue" :id="label + '-id'" fluid mode="currency" currency="COP" />
+            <InputNumber 
+                v-model="localValue" 
+                :id="label + '-id'" 
+                fluid 
+                :minFractionDigits="2"
+                locale="es-CO"
+            />
             <label :for="label + '-id'">{{ label }}</label>
         </FloatLabel>
     </div>

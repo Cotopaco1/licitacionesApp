@@ -5,9 +5,15 @@ namespace App\Models;
 use App\Models\Supplier;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Searchable\Search;
+/* Spatie sercheable */
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Product extends Model
+class Product extends Model implements Searchable
 {
+    use HasFactory;
     //
     protected $fillable = [
         'name',
@@ -21,9 +27,34 @@ class Product extends Model
         'supplier_id',
     ];
 
-    public function supplier()
+    protected $appends = ['supplier'];
+
+    public function supplier_relation()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
+    }
+    
+    public function getSupplierAttribute()
+    {
+        return $this->supplier_relation->name ?? null;
+    }
+
+
+    public function getSearchResult(): SearchResult
+    {
+        return new SearchResult(
+            $this,
+            $this->name,
+        );
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withSupplier', function ($builder) {
+            $builder->with('supplier_relation');
+        });
     }
 
 }
