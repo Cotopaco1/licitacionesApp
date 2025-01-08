@@ -35,7 +35,11 @@
     }
 </script>
 <template>
-    <SupplierCreate :showModal="showCreateModal" @close="showCreateModal = false"/>
+    <SupplierCreate 
+        :showModal="showCreateModal" 
+        @close="showCreateModal = false"
+        @updated="getSuppliers"
+    />
     <SupplierView 
         :showModal="showViewModal" @updated="getSuppliers"
         @close="showViewModal = false" v-model="supplierToView"/>

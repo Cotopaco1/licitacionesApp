@@ -8,6 +8,7 @@
     import { DataTable, Column, InputNumber } from 'primevue';
     import axios from 'axios';
     import Swal from 'sweetalert2';
+    import { alerError } from '@/Composables/AlertService';
     const props = defineProps({
         currentRoute: {
             type: String,
@@ -27,6 +28,10 @@
         productsSelected.value = productsSelected.value.filter( element => element.id !== product.id);
     }
     function createQuotation(){
+        if(productsSelected.value.length === 0){
+            alerError("No hay productos seleccionados");
+            return;
+        }
         axios.post('/quotation/products', {
             profit_percentage: profitPercentage.value,
             items: productsSelected.value
@@ -43,12 +48,8 @@
                 window.URL.revokeObjectURL(url); // Limpiar la URL temporal
                 
             })
-            .catch( error => {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops... Status: " + err?.response?.status,
-                    text: err?.response?.data?.message,
-                });
+            .catch( err => {
+                alerError(err?.response?.data?.message ?? "Error al generar la cotización");
             });
         
     }

@@ -27,7 +27,7 @@ class ProductStoreRequest extends FormRequest
             'supplier_id'               => 'nullable|integer|exists:suppliers,id',
             'unit_of_measure'           => 'required|string|max:255',
             'description'               => 'nullable|string',
-            'unit_price_withouth_tax'   => 'required|decimal:0,2|',
+            'unit_price_withouth_tax'   => 'required|decimal:0,2|min:1',
             'brand'                     => 'nullable|string|max:255',
             'notes'                     => 'nullable|string',
             'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',

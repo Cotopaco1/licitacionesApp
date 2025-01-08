@@ -28,12 +28,14 @@ class GenerateQuotation implements FromCollection, WithHeadings,
     protected $profit_percentage;
     protected $items;
     protected static $priceFormat = "[$$-CO] #,##0.00";
+    protected $tax_multiplier_total;
 
     // Constructor para recibir el porcentaje de ganancia
     public function __construct($profit_percentage, $items)
     {
         $this->profit_percentage = $profit_percentage;
         $this->items = $items;
+        $this->tax_multiplier_total = Tax::first()->total_with_tax_multiplier;
     }
 
     /**
@@ -68,8 +70,7 @@ class GenerateQuotation implements FromCollection, WithHeadings,
      */
     public function map($product): array
     {
-        $tax_multiplier_total = Tax::first()->total_with_tax_multiplier; // Suponiendo que solo tienes un impuesto IVA
-        $unit_price_with_tax = $product['unit_price_withouth_tax'] * $tax_multiplier_total ; // Precio con IVA
+        $unit_price_with_tax = $product['unit_price_withouth_tax'] * $this->tax_multiplier_total ; // Precio con IVA
         $total_with_tax = $unit_price_with_tax * $product['quantity']; // Precio total con IVA
         $total_with_profit = $total_with_tax * (1 + ($this->profit_percentage / 100)); // Total con ganancia
 
@@ -106,16 +107,16 @@ class GenerateQuotation implements FromCollection, WithHeadings,
         $sheet->getStyle('A1:M1')->applyFromArray([
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
-                'startColor' => ['rgb' => 'FFC107'], // Color amarillo
+                'startColor' => ['rgb' => 'FFC107'], 
             ],
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
-                    'color' => ['rgb' => '000000'], // Bordes negros
+                    'color' => ['rgb' => '000000'],
                 ],
             ],
             'font' => [
-                'bold' => true, // Opcional, para destacar los títulos
+                'bold' => true, 
             ],
             'alignment' => [
                     'wrapText'  => true
@@ -158,16 +159,16 @@ class GenerateQuotation implements FromCollection, WithHeadings,
         $sheet = $event->sheet;
         $highestRow = $sheet->getHighestRow(); // Última fila con datos
         foreach($columnsToSum as $column) {
-            // Celda donde se escribirá el total (Ejemplo: C + siguiente fila)
+            
             $totalCell = $column . ($highestRow + 1);
 
-            // Fórmula para calcular la suma de la columna C (desde C2 hasta la última fila)
+            // Fórmula para calcular la primera celda de la columna, y la ultima
             $sumFormula = "=SUM(".$column."2:$column" . $highestRow . ')';
 
             // Escribir el total en la celda específica
             $sheet->setCellValue($totalCell, $sumFormula);
 
-            // Aplicar formato opcional al total (negrita, moneda, etc.)
+            // Aplicar formato 
             $sheet->getStyle($totalCell)->getFont()->setBold(true);
             $sheet->getStyle($totalCell)->getNumberFormat()->setFormatCode(self::$priceFormat); // Moneda o formato numérico
         }

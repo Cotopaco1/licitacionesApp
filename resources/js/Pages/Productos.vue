@@ -42,7 +42,11 @@
 </script>
 <template>
     
-    <ProductCreate :showModal="showProductCreate" @close="showProductCreate = false"/>
+    <ProductCreate 
+        :showModal="showProductCreate" 
+        @close="showProductCreate = false"
+        @updated="getProducts"
+    />
     
     <ProductView 
         v-model="productToView" 

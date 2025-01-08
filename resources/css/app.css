@@ -68,7 +68,7 @@ span{
 }
 /* botones */
 .button{
-    @apply px-4 py-2 rounded-lg;
+    @apply px-4 py-2 rounded-lg cursor-pointer;
     transition: filter 0.3s;
 }
 .button:hover{

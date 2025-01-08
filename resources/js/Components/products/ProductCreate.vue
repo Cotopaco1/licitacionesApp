@@ -5,26 +5,30 @@
     import ErrorsMessages from '../forms/ErrorsMessages.vue';
     import { ref } from 'vue';
     import ModalCustom from '../ModalCustom.vue';
+    import { alertSuccess } from '@/Composables/AlertService';
 
     const { request, errors } = RequestService();
-    const emit = defineEmits(['close']);
+    const emit = defineEmits(['close', 'updated']);
     const props = defineProps({
         showModal: Boolean
     });
     function createProduct() {
         const formData = new FormData();
-        formData.append('file', product.value.file);
+        if(product.value.file != null){
+            console.log('Tiene valor', product.value.file);
+            formData.append('file', product.value.file);
+        }
         Object.entries(product.value).forEach(([key, value]) => {
             if (key === 'file') return;
             formData.append(key, value);
         });
         request('/product', formData, 'POST', false).then(response => {
-            console.log(response);
+            alertSuccess('Producto creado correctamente');
+            emit('updated');
+            emit('close');
+            product.value = [];
         })
         
-    }
-    function deleteProduct(){
-        console.log('Deleting product');
     }
     const product = ref({
         name: '',

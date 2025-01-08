@@ -11,7 +11,7 @@
     const props = defineProps({
         showModal: Boolean
     });
-    const emit = defineEmits(['close']);
+    const emit = defineEmits(['close', 'updated']);
 
     const supplier = ref({
         name: '',
@@ -32,6 +32,7 @@
                 showConfirmButton: false,
                 timer: 1500
                 });
+                emit('updated');
                 emit('close');
             });
     }
