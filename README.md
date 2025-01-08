@@ -1,4 +1,4 @@
-<p align="center"><img src="./public/assets/logo-app-500x500.svg" width="400" alt="Laravel Logo"></p>
+<p align="center"><img src="./public/assets/logo-app-500x500.svg" width="200" alt="Laravel Logo"></p>
 
 ## About licitacionesApp
 
