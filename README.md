@@ -27,10 +27,6 @@ LicitacionesApp es una aplicación diseñada para gestionar cotizaciones y contr
 
 Este proyecto fue desarrollado con PHP versión **8.3.7**.
 
-
-Este proyecto se realizo con la version de php : 8.3.7
-
-
 ## License
 
 El software licitacionesAPP tiene la siguiente licencia [gpl-3-0 license](https://opensource.org/license/gpl-3-0).
