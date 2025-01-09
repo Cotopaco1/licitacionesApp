@@ -24,7 +24,7 @@ class ProductController extends Controller
             $file = $request->file('file');
             $fileName =  time() . '_' .  $file->getClientOriginalName(); 
             $filePath = $file->storeAs('products-files', $fileName, 'local'); 
-            $validated['url_data'] = $filePath; // Agregar la ruta del archivo a los datos validados
+            $validated['url_data'] = $filePath; 
         }
         
         $product = Product::create($validated);
@@ -98,19 +98,6 @@ class ProductController extends Controller
         $zip->close();
 
         return response()->download($zipFileName, 'cotizacion-app.zip')->deleteFileAfterSend(true);
-
-        // return Excel::download(new GenerateQuotation($request->profit_percentage, $request->items), 'quotation.xlsx');
-        
-
-
-
-        // $path = Storage::disk('local')->path('quiotation.xlsx');
-        // Excel::store(new GenerateQuotation($request->profit_percentage, $request->items), 'quotation.xlsx');
-        // $file = Excel::raw(new GenerateQuotation($request->profit_percentage, $request->items), \Maatwebsite\Excel\Excel::XLSX);
-        /* return response($file, 200, [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition' => 'attachment; filename="quotation.xlsx"',
-        ]); */
         
     }
 
@@ -133,7 +120,7 @@ class ProductController extends Controller
             $file = $request->file('file');
             $fileName =  time() . '_' .  $file->getClientOriginalName(); 
             $filePath = $file->storeAs('products-files', $fileName, 'local'); 
-            $validated['url_data'] = $filePath; // Agregar la ruta del archivo a los datos validados
+            $validated['url_data'] = $filePath; 
 
             if($product->url_data){
                 Storage::disk('local')->delete($product->url_data);

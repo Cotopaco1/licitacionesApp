@@ -23,11 +23,12 @@ LicitacionesApp es una aplicación diseñada para gestionar cotizaciones y contr
 
 ## Guia instalacion
 
+Una vez conectada la base de datos y realizado las migraciones entonces:
 - Ejecutar el comando app:initial-settings
   Este comando:
 - Insertara la informacion del impuesto IVA (19%) - Se aplicara a las cotizaciones.
 - Pedirá un correo electronico para el administrador y una contraseña.
-- Creara la carpeta temp en el siguiente directorio : `/storage/app/private/temp`
+- Creará la carpeta temp en el siguiente directorio : `/storage/app/private/temp`
   Por ultimo:
 - Instale las dependencias e inicie el servidor.
 
