@@ -1,10 +1,21 @@
 <p align="center"><img src="./public/assets/logo-app-500x500.svg" width="200" alt="Laravel Logo"></p>
 
-## About licitacionesApp
+## Acerca de licitacionesApp
 
 LicitacionesApp es una aplicación diseñada para gestionar cotizaciones y controlar los productos cotizados junto con sus fichas técnicas. La aplicación permite guardar cotizaciones realizadas por terceros y generar nuevas cotizaciones utilizando los datos previamente guardados. De esta manera, podrás mantener una base de datos con los productos que ya has cotizado y generar cotizaciones futuras aplicando un porcentaje de ganancia personalizado.
 
-## Tecnologias utilizadas
+## Funcionalidades
+
+- Módulo de productos, creacion, edicion y eliminacion de productos.
+- Módulo de proveedores, creacion, edicion y eliminacion de proveedores.
+- Módulo de cotizaciones, descargar zip de una cotizacion que contiene:
+    - Archivo en formato excel(.xlsx), con la cotizacion, la cotizacion tiene el siguiente formato:
+        - Lista de todos los productos, cada uno con la información ingresada por el usuario, además tendra columnas extras las cuales la aplicacion calculará automáticamente.
+        - Columnas calculadas automaticamente: Precion uniario con Iva, Total (precio unitaro con IVA * cantidad del producto), total con ganancias, porcentaje de ganancia.
+        - Suma de la columna total y total con ganancias.
+    - Carpeta agrupando las fichas tecnicas de los productos cotizados. 
+
+## Tecnologías principales utilizadas
 
 - **Vue.js 3**: Usado para el frontend y la creación de interfaces dinámicas.
 - **Laravel**: Framework PHP utilizado para el backend y la gestión de la lógica del servidor.
