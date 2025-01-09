@@ -13,10 +13,12 @@ LicitacionesApp es una aplicación diseñada para gestionar cotizaciones y contr
 ## Guia instalacion
 
 - Ejecutar el comando app:initial-settings
+  Este comando:
 - Insertara la informacion del impuesto IVA (19%) - Se aplicara a las cotizaciones.
 - Pedirá un correo electronico para el administrador y una contraseña.
-- Crear la carpeta temp en el siguiente directorio : `/storage/app/private/temp`
-- Instalar dependencias e iniciar el servidor.
+- Creara la carpeta temp en el siguiente directorio : `/storage/app/private/temp`
+  Por ultimo:
+- Instale las dependencias e inicie el servidor.
 
 ## PHP Settings
 
@@ -34,6 +36,8 @@ LicitacionesApp es una aplicación diseñada para gestionar cotizaciones y contr
 
 Este proyecto fue desarrollado con PHP versión **8.3.7**.
 
-## License
+## Condiciones de Uso
 
-El software licitacionesAPP tiene la siguiente licencia [gpl-3-0 license](https://opensource.org/license/gpl-3-0).
+Este código está protegido bajo la licencia **"Todos los derechos reservados"**, lo que significa que no se permite su uso, distribución ni modificación sin el permiso explícito del autor. 
+
+Si deseas usar este código para algún propósito, por favor, contacta conmigo a **sss.sergiosilvasanchez@gmail.com**.
