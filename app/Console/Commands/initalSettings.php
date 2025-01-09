@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Tax;
+use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 
 class initalSettings extends Command
 {
@@ -27,6 +29,7 @@ class initalSettings extends Command
     public function handle()
     {
         //
+        $this->info('Creating the initial settings for the application');
         Tax::create([
             'name' => 'IVA',
             'tax_percentage' => 19,
@@ -35,5 +38,22 @@ class initalSettings extends Command
         ]);
         $this->info('IVA created successfully');
 
+        $name = $this->ask('Enter the name of the user');
+        $email = $this->ask('Enter the email of the user');
+        $password = $this->secret('Enter the password for the user');
+        // Validate if the email is already in use
+        if (User::where('email', $email)->exists()) {
+            $this->error('The email is already in use. Please use a different email.');
+            return 1;
+        }
+
+        // Create the user
+        User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+        ]);
+
+        $this->info("The user has been created successfully!");
     }
 }
