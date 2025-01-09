@@ -10,6 +10,13 @@ LicitacionesApp es una aplicación diseñada para gestionar cotizaciones y contr
 - **Laravel**: Framework PHP utilizado para el backend y la gestión de la lógica del servidor.
 - **Inertia.js**: Puente que conecta Vue.js con Laravel para una experiencia de página única (SPA) sin necesidad de usar una API REST completa.
 
+## Guia instalacion
+
+- Ejecutar el comando app:initial-settings
+- Insertara la informacion del impuesto IVA (19%) - Se aplicara a las cotizaciones.
+- Pedirá un correo electronico para el administrador y una contraseña.
+- Crear la carpeta temp en el siguiente directorio : `/storage/app/private/temp`
+- Instalar dependencias e iniciar el servidor.
 
 ## PHP Settings
 
