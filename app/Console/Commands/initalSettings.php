@@ -6,6 +6,7 @@ use App\Models\Tax;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class initalSettings extends Command
 {
@@ -37,6 +38,11 @@ class initalSettings extends Command
             'total_with_tax_multiplier' => 1.19
         ]);
         $this->info('IVA created successfully');
+
+        if(!Storage::disk('local')->exists('temp')){
+            Storage::disk('local')->makeDirectory('temp');  
+            $this->info('The temp directory has been created successfully');
+        }
 
         $name = $this->ask('Enter the name of the user');
         $email = $this->ask('Enter the email of the user');
